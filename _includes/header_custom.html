@@ -35,35 +35,41 @@
     const icon = document.getElementById('theme-icon');
     const text = document.getElementById('theme-text');
     
+    function isDarkTheme() {
+      const theme = jtd.getTheme();
+      return theme === 'default' || theme === 'dark';
+    }
+
     function updateBtn() {
-      if (jtd.getTheme() === 'dark') {
+      if (isDarkTheme()) {
         icon.innerHTML = '☀️';
-        text.innerHTML = 'Light';
+        text.innerHTML = 'Light Mode';
         btn.style.setProperty('--btn-bg', '#21262d');
         btn.style.setProperty('--btn-border', '#30363d');
         btn.style.setProperty('--btn-text', '#c9d1d9');
         btn.style.setProperty('--btn-bg-hover', '#30363d');
         btn.style.setProperty('--btn-border-hover', '#8b949e');
+        document.documentElement.setAttribute('data-theme', 'dark');
       } else {
         icon.innerHTML = '🌙';
-        text.innerHTML = 'Dark';
+        text.innerHTML = 'Dark Mode';
         btn.style.setProperty('--btn-bg', '#f6f8fa');
         btn.style.setProperty('--btn-border', '#d0d7de');
         btn.style.setProperty('--btn-text', '#24292f');
         btn.style.setProperty('--btn-bg-hover', '#f3f4f6');
         btn.style.setProperty('--btn-border-hover', '#8c959f');
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     }
 
-    // Initialize button state
     if (typeof jtd !== 'undefined') {
       updateBtn();
       
       btn.addEventListener('click', function() {
-        if (jtd.getTheme() === 'dark') {
+        if (isDarkTheme()) {
           jtd.setTheme('light');
         } else {
-          jtd.setTheme('dark');
+          jtd.setTheme('default');
         }
         updateBtn();
       });

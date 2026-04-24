@@ -16,6 +16,18 @@ Welcome to your interactive digital book. Browse the units below to study the th
 .custom-card:hover { border-color: #58a6ff !important; transform: translateY(-2px); }
 .custom-title { margin: 0; color: #58a6ff; font-size: 1.3rem; font-weight: bold; display: block; }
 .custom-icon { font-size: 2.5rem; display: block; }
+
+/* Light Mode support */
+html[data-theme="light"] .custom-card {
+  background: #ffffff;
+  border-color: #d0d7de !important;
+}
+html[data-theme="light"] .custom-card:hover {
+  border-color: #0969da !important;
+}
+html[data-theme="light"] .custom-title {
+  color: #0969da !important;
+}
 </style>
 
 <div class="custom-grid">
