@@ -1,6 +1,13 @@
 title: IT English Vault
 description: Digital Hub for Theory and Resources.
+
+# Fix for GitHub Pages URLs and Theme
+url: "https://carlitic.github.io"
+baseurl: "/IT-English-Vault"
 remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
 search_enabled: true
 color_scheme: dark
 aux_links:
