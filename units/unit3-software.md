@@ -9,6 +9,7 @@ Programming concepts, databases, and agile methodologies.
 > **🎯 Learning Outcome / RA 2 & 4:** Reads software documentation and writes technical reports or code comments.
 
 ## 🔑 Technical Vocabulary
+
 | Concept | Definition |
 | :--- | :--- |
 | Debugging | The process of finding and resolving bugs in code. |

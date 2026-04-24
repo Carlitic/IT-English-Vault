@@ -9,6 +9,7 @@ Review of physical components, technical specifications, and core systems.
 > **🎯 Learning Outcome / RA 2:** Interprets professional information contained in complex written texts (Reading technical manuals and spec sheets).
 
 ## 🔑 Technical Vocabulary
+
 | Concept | Definition |
 | :--- | :--- |
 | Motherboard | The main printed circuit board containing the CPU and RAM. |

@@ -9,6 +9,7 @@ Resume preparation and IT job interviews.
 > **🎯 Learning Outcome / RA 3 & 5:** Produces oral messages and applies professional behaviors (Job interviews and professional integration).
 
 ## 🔑 Technical Vocabulary
+
 | Concept | Definition |
 | :--- | :--- |
 | Resume / CV | A formal document detailing your work experience and skills. |

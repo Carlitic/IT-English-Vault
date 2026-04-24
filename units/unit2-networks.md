@@ -9,6 +9,7 @@ Protocols, connectivity, troubleshooting, and cybersecurity basics.
 > **🎯 Learning Outcome / RA 1:** Recognizes professional and everyday information in oral discourses (Listening to IT support calls and network troubleshooting).
 
 ## 🔑 Technical Vocabulary
+
 | Concept | Definition |
 | :--- | :--- |
 | Bandwidth | The maximum data transfer rate of a network. |
