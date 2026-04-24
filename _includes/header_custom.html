@@ -40,68 +40,68 @@ html[data-theme="light"] .theme-btn:hover {
 </style>
 
 <div class="theme-toggle">
-  <button class="theme-btn" id="theme-toggle-btn" title="Toggle Theme">
+  <button class="theme-btn" id="theme-toggle-btn" title="Toggle Theme" onclick="window.toggleCustomTheme()">
     <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
   </button>
 </div>
 
 <script type="text/javascript">
-  (function() {
-    // 1. Apply saved theme immediately to avoid flashing
-    var savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      if (typeof jtd !== 'undefined') {
-        if (savedTheme === 'light') {
-          jtd.setTheme('light');
-        } else {
-          jtd.setTheme('default');
-        }
+  // 1. Apply saved theme immediately to avoid flashing
+  var savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    if (typeof jtd !== 'undefined') {
+      if (savedTheme === 'light') {
+        jtd.setTheme('light');
+      } else {
+        jtd.setTheme('default');
       }
     }
+  }
 
-    // 2. Setup button logic immediately (button exists right above this script)
-    const btn = document.getElementById('theme-toggle-btn');
+  // 2. Define global toggle function
+  window.toggleCustomTheme = function() {
     const icon = document.getElementById('theme-icon');
     const text = document.getElementById('theme-text');
     
-    if (!btn) return; // safety check
-
-    function isDarkTheme() {
-      const theme = document.documentElement.getAttribute('data-theme');
-      if (theme) {
-          return theme === 'dark';
-      }
-      return typeof jtd !== 'undefined' && (jtd.getTheme() === 'default' || jtd.getTheme() === 'dark');
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (!document.documentElement.hasAttribute('data-theme') && typeof jtd !== 'undefined') {
+      isDark = (jtd.getTheme() === 'default' || jtd.getTheme() === 'dark');
     }
 
-    function updateBtn() {
-      if (isDarkTheme()) {
-        icon.innerHTML = '☀️';
-        text.innerHTML = 'Light Mode';
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        icon.innerHTML = '🌙';
-        text.innerHTML = 'Dark Mode';
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
+    if (isDark) {
+      // Switch to Light Mode
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+      if (typeof jtd !== 'undefined') jtd.setTheme('light');
+      if (icon) icon.innerHTML = '🌙';
+      if (text) text.innerHTML = 'Dark Mode';
+    } else {
+      // Switch to Dark Mode
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      if (typeof jtd !== 'undefined') jtd.setTheme('default');
+      if (icon) icon.innerHTML = '☀️';
+      if (text) text.innerHTML = 'Light Mode';
     }
+  };
 
-    // Initialize button visual state
-    updateBtn();
+  // 3. Sync initial button UI state
+  document.addEventListener('DOMContentLoaded', function() {
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
     
-    // Add click event listener
-    btn.addEventListener('click', function() {
-      if (isDarkTheme()) {
-        if (typeof jtd !== 'undefined') jtd.setTheme('light');
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        if (typeof jtd !== 'undefined') jtd.setTheme('default');
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-      updateBtn();
-    });
-  })();
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (!document.documentElement.hasAttribute('data-theme') && typeof jtd !== 'undefined') {
+      isDark = (jtd.getTheme() === 'default' || jtd.getTheme() === 'dark');
+    }
+    
+    if (isDark) {
+      if (icon) icon.innerHTML = '☀️';
+      if (text) text.innerHTML = 'Light Mode';
+    } else {
+      if (icon) icon.innerHTML = '🌙';
+      if (text) text.innerHTML = 'Dark Mode';
+    }
+  });
 </script>
