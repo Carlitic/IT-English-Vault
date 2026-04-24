@@ -1,9 +1,62 @@
-<div style="margin-left: auto; margin-right: 1rem; display: flex; align-items: center;">
-  <div id="google_translate_element"></div>
+<style>
+/* Hide the Google Translate top bar and original widget */
+body { top: 0 !important; }
+.skiptranslate { display: none !important; }
+#google_translate_element { display: none !important; }
+
+/* Custom toggle buttons */
+.lang-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+.lang-btn {
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  color: #c9d1d9;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lang-btn:hover {
+  background: #30363d;
+  border-color: #8b949e;
+}
+</style>
+
+<div class="lang-toggle">
+  <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
+  <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 ES</button>
 </div>
+
+<div id="google_translate_element"></div>
+
 <script type="text/javascript">
+function setLanguage(lang) {
+    // Delete potential existing cookies first
+    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
+    
+    // Set new cookie based on selected language
+    if (lang === 'es') {
+        document.cookie = "googtrans=/en/es; path=/; domain=" + window.location.hostname;
+        document.cookie = "googtrans=/en/es; path=/";
+    }
+    window.location.reload();
+}
+
 function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'es,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'es,en',
+    autoDisplay: false
+  }, 'google_translate_element');
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
