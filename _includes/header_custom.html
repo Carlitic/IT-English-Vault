@@ -1,62 +1,72 @@
 <style>
-/* Hide the Google Translate top bar and original widget */
-body { top: 0 !important; }
-.skiptranslate { display: none !important; }
-#google_translate_element { display: none !important; }
-
-/* Custom toggle buttons */
-.lang-toggle {
-  display: flex;
-  gap: 0.5rem;
+.theme-toggle {
   margin-left: 1rem;
 }
-.lang-btn {
-  background: #21262d;
-  border: 1px solid #30363d;
+.theme-btn {
+  background: var(--btn-bg, #21262d);
+  border: 1px solid var(--btn-border, #30363d);
   border-radius: 6px;
   padding: 0.3rem 0.6rem;
   cursor: pointer;
-  color: #c9d1d9;
+  color: var(--btn-text, #c9d1d9);
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.3rem;
 }
-.lang-btn:hover {
-  background: #30363d;
-  border-color: #8b949e;
+.theme-btn:hover {
+  background: var(--btn-bg-hover, #30363d);
+  border-color: var(--btn-border-hover, #8b949e);
 }
 </style>
 
-<div class="lang-toggle">
-  <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
-  <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 ES</button>
+<div class="theme-toggle">
+  <button class="theme-btn" id="theme-toggle-btn" title="Toggle Theme">
+    <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+  </button>
 </div>
 
-<div id="google_translate_element"></div>
-
 <script type="text/javascript">
-function setLanguage(lang) {
-    // Delete potential existing cookies first
-    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('theme-toggle-btn');
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
     
-    // Set new cookie based on selected language
-    if (lang === 'es') {
-        document.cookie = "googtrans=/en/es; path=/; domain=" + window.location.hostname;
-        document.cookie = "googtrans=/en/es; path=/";
+    function updateBtn() {
+      if (jtd.getTheme() === 'dark') {
+        icon.innerHTML = '☀️';
+        text.innerHTML = 'Light';
+        btn.style.setProperty('--btn-bg', '#21262d');
+        btn.style.setProperty('--btn-border', '#30363d');
+        btn.style.setProperty('--btn-text', '#c9d1d9');
+        btn.style.setProperty('--btn-bg-hover', '#30363d');
+        btn.style.setProperty('--btn-border-hover', '#8b949e');
+      } else {
+        icon.innerHTML = '🌙';
+        text.innerHTML = 'Dark';
+        btn.style.setProperty('--btn-bg', '#f6f8fa');
+        btn.style.setProperty('--btn-border', '#d0d7de');
+        btn.style.setProperty('--btn-text', '#24292f');
+        btn.style.setProperty('--btn-bg-hover', '#f3f4f6');
+        btn.style.setProperty('--btn-border-hover', '#8c959f');
+      }
     }
-    window.location.reload();
-}
 
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'es,en',
-    autoDisplay: false
-  }, 'google_translate_element');
-}
+    // Initialize button state
+    if (typeof jtd !== 'undefined') {
+      updateBtn();
+      
+      btn.addEventListener('click', function() {
+        if (jtd.getTheme() === 'dark') {
+          jtd.setTheme('light');
+        } else {
+          jtd.setTheme('dark');
+        }
+        updateBtn();
+      });
+    }
+  });
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
